@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 
 project(rknn_yolov8_demo)
 
+find_package(OpenCV REQUIRED)  # 添加这一行（如果没有）
+
+
 if (ENABLE_ASAN)
 	message(STATUS "BUILD WITH ADDRESS SANITIZER")
 	set (CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
@@ -42,6 +45,7 @@ target_link_libraries(${PROJECT_NAME}
     imagedrawing    
     ${LIBRKNNRT}
     dl
+    ${OpenCV_LIBS}
 )
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Android")
@@ -80,6 +84,7 @@ if (NOT (TARGET_SOC STREQUAL "rv1106" OR TARGET_SOC STREQUAL "rv1103" OR TARGET_
         imagedrawing    
         ${LIBRKNNRT}
         dl
+        ${OpenCV_LIBS}
     )
 
     if (CMAKE_SYSTEM_NAME STREQUAL "Android")
